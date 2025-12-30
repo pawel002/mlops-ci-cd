@@ -1,3 +1,5 @@
+from sentiment_app.app import Settings
+
 import sys
 from unittest.mock import MagicMock
 import pytest
@@ -31,7 +33,6 @@ def side_effect_session(path):
 mock_ort_lib.InferenceSession.side_effect = side_effect_session
 sys.modules["onnxruntime"] = mock_ort_lib
 
-from sentiment_app.app import Settings
 
 @pytest.fixture
 def mock_settings():
