@@ -2,6 +2,7 @@ import os
 import numpy as np
 import onnxruntime as ort
 
+from mangum import Mangum
 from fastapi import FastAPI
 from pydantic import BaseModel
 from cleantext import clean
@@ -61,3 +62,5 @@ def health_check():
 @app.post("/predict")
 def predict(request: PredictRequest) -> PredictResponse:
     return PredictResponse(prediction=inference.predict(request.text))
+
+handler = Mangum(app)
