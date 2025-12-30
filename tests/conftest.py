@@ -1,15 +1,15 @@
+from sentiment_app.app import Settings
+
 import pytest
 import numpy as np
 from unittest.mock import MagicMock
 
 import sys
-from unittest.mock import MagicMock
 
 sys.modules["onnxruntime"] = MagicMock()
 sys.modules["tokenizers"] = MagicMock()
 sys.modules["mangum"] = MagicMock()
 
-from sentiment_app.app import Inference, Settings, app
 
 @pytest.fixture
 def mock_settings():
