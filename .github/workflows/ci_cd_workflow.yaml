@@ -1,6 +1,16 @@
 name: CI/CD workflow
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      steps:
+        description: "Steps to run"
+        required: true
+        type: choice
+        options:
+          - integration
+          - all
+        default: all
 
 env:
   AWS_REGION: us-east-1
@@ -9,6 +19,7 @@ env:
 
 jobs:
   integration:
+    if: ${{ inputs.steps == 'all' || inputs.steps == 'integration' }}
     name: checks_and_tests
     runs-on: ubuntu-latest
 
@@ -30,6 +41,7 @@ jobs:
 
   deployment:
     needs: [integration]
+    if: ${{ inputs.steps == 'all' && needs.integration.result == 'success' }}
     name: run_scripts
     runs-on: ubuntu-latest
     steps:
