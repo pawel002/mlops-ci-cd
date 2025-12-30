@@ -1,8 +1,8 @@
 [project]
-name = "sentiment-app"
+name = "app"
 version = "0.1.0"
-description = "Simple sentiment analysis app"
-requires-python = ">=3.12"
+description = "Mlops app"
+requires-python = "==3.12"
 
 dependencies = []
 
