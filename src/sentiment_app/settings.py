@@ -4,8 +4,8 @@ class Settings(BaseSettings):
     s3_bucket:                  str = "mlops-lab11-models-pjarosz"
     s3_model_dir:               str = "model"
     classifier_joblib_path:     str = "model/classifier.joblib"
-    sentence_transformer_path:  str = "model/sentence_transformer.model"
+    sentence_transformer_dir:   str = "model/sentence_transformer.model"
     tokenizer_path:             str = "model/sentence_transformer_tokenizer"
     onnx_classifier_path:       str = "model/classifier.onnx"
-    onnx_embedding_path:        str = "model/sentence_transformer.onnx"
+    onnx_embedding_model_path:  str = "model/sentence_transformer.onnx"
     embedding_dim:              int = 384

@@ -1,7 +1,8 @@
 import os
-from app.settings import Settings
 import torch
+
 from transformers import AutoTokenizer, AutoModel
+from sentiment_app.settings import Settings
 
 
 # Wrapper to include Mean Pooling in the ONNX graph
@@ -17,9 +18,7 @@ class SentenceEmbeddingModel(torch.nn.Module):
 
         # Mean Pooling operation
         # attention_mask: (Batch, Seq) -> expand to (Batch, Seq, Hidden)
-        mask_expanded = (
-            attention_mask.unsqueeze(-1).expand(last_hidden_state.size()).float()
-        )
+        mask_expanded = attention_mask.unsqueeze(-1).expand(last_hidden_state.size()).float()
 
         # Sum embeddings where mask is 1
         sum_embeddings = torch.sum(last_hidden_state * mask_expanded, 1)
@@ -63,7 +62,7 @@ def export_model_to_onnx(settings: Settings):
             dynamo=False,
         )
 
-    tokenizer.save_pretrained(os.path.dirname(settings.onnx_tokenizer_path))
+    tokenizer.save_pretrained(settings.tokenizer_path)
 
     print(f"ONNX model exported to {onnx_path}")
     return onnx_path
