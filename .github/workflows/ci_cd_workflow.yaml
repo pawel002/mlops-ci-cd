@@ -1,0 +1,29 @@
+name: CI/CD workflow
+
+on: workflow_dispatch
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: app-onnx
+  S3_BUCKET: mlops-lab11-models-pjarosz
+
+jobs:
+  integration:
+    name: checks_and_tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code repo
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Install dependencies
+        run: uv sync --group integration
+
+      - name: Run Ruff check
+        run: uv run ruff check .
+
+      - name: Run Pytest
+        run: uv run pytest
